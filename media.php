@@ -5,7 +5,7 @@ if( isset($_GET) && !empty($_GET['img']) && $_GET['img'] != 'undefined' ) {
         //die();
     }
     
-    $DomainName = 'http://triginals.com/';
+    $DomainName = 'http://media.gotsocial.me/';
     $PathName = 'media/gifs/';
     $NewImageName = trim($_GET['img']);   
     
@@ -44,16 +44,13 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true ) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="$NewImageFull">
-    <meta name="author" content="$NewImageFull">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <link rel="icon" href="assets/img/favicon.ico">
     
-    <title>TimeMac Originals</title>
-    <meta name="
-	<meta name="Author" content="TimeMac Originals"/>
-	<meta name="Website" content="http://triginals.com"/>
-    <meta property="og:image" content="" />      
-    <meta property="og:url" content="" />
+    <title>GIFS MEDIA - Page</title>
+	<meta name="Author" content="Tony López Pagán"/>
+	<meta name="Website" content="http://lopezpagan.com"/>
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
 <body>   
@@ -70,14 +67,13 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true ) {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                   </button>
-                   <a class="navbar-brand" href="index.php"><span class="logo"><img class="img-responsive icon" alt="logo"src="media/img/newLogo.png"</span></a>
+                  <a class="navbar-brand" href="index.php"><span class="logo"></span></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
-                    <li ><a href="Clothing/index.php">Clothing</a></li>
-                    <li class="active"><a href="index.php">GIFs</a></li>
+                    <li class="active"><a href="index.php">Gifs</a></li>
                     <li><?php echo($btn_upload);?></li>
-                    <!--<li><?php echo($btn_login);?></li>-->
+                    <li><?php echo($btn_login);?></li>
                   </ul>
                 </div><!--/.nav-collapse -->
               </div>
@@ -86,21 +82,12 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true ) {
        
         <section id="primary-slider">
             <div class="container">
-                <h1 class="page-title text-center">TimeMac Originals</h1>
+                <h1 class="page-title text-center">Gifs Media!</h1>
                 <!--<img class="media col-xs-12 col-md-6 col-md-offset-3" src="media/gifs/filler.gif">-->
+                <img class="media col-xs-12 col-md-6 col-md-offset-3" src="<?php echo($NewImage);?>">
             </div>
         </section>
-        		
-                
-                <div class="well well-lg">
-                    <img class="media col-xs-12 col-md-6 col-md-offset-3" src="<?php echo($NewImage);?>">
-                    
-                    
-            
-                </div>
-                
-                
-               
+
         <section id="secondary">
             <!--<div class="container">
                     <div class="col-xs-12 col-sm-6 col-md-4">One</div>
@@ -136,21 +123,40 @@ if (isset($_SESSION['logged']) && $_SESSION['logged'] == true ) {
                       <a href="<?php echo($NewImage);?>" download="<?php echo($NewImageName);?>">Download</a></span>
                       <input type="text" class="form-control" placeholder="http://" aria-describedby="kis-download" value="<?php echo($NewImageFull);?>">
                 </div>
+                <?php 
+                    $dir = "media/gifs/";
+                    
+                    // Open a directory, and read its contents
+                    if (is_dir($dir)){
+                      if ($dh = opendir($dir)){
+                        while ((($file = readdir($dh)) !== false)) {
+                            $files[] = $file;
+                        }
+                        $images=preg_grep('/\.(jpg|jpeg|png|gif)(?:[\?\#].*)?$/i', $files);
+                        $images=preg_grep('/\.gif/i', $files); 
+                        $images = array_splice($images,0,2);
+                        print_r($images);
+                        echo "<br/>";
+                        $rand_image = array_rand($images);
+                        echo $rand_image;
+                ?>
+
+                <a href="media.php?img=<?php echo($images[$rand_image]);?>"><button>Next</button></a>
             </div>
         </section>
     </div>
+    <?php
+                
+                        closedir($dh);
+                      }
+                  }
+                ?>
     
-    <div class="container-fluid"> 
-        <div class="row">
-              <a href="https://www.facebook.com/triginals" target="_blank"><img style="display:block;float:left;padding:1px 10px 10px 1px;" class="img-responsive" src="media/img/facebook.png" width="70" height="70" alt="facebook" /></a>
-              <a href="https://www.instagram.com/triginals" target="_blank"><img style="display:block;float:left;padding:1px 10px 10px 1px;"  class="img-responsive" src="media/img/instagram.jpg" width="70" height="70" alt="instagram"/></a>
-              <div class="text-center col-md-offset-0 col-md-10">
-              
-                <h4>Built by #TeamTimeMac</h4>
-                <p>Copyright &copy; 2016 &middot; All Rights Reserved &middot; </p>
-              </div>
-             </div>
-       </div>
+    <footer class="footer-fixed">
+        <div class="container">
+            <div class="col-xs-12">Copyright 2016 &copy; <a href="http://lopezpagan.com" target="_blank">Tony López Pagán</a></div>
+        </div> 
+    </footer>
     
 <!---------------------
         Scripts
